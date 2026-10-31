@@ -1,16 +1,16 @@
+import java.util.List;
+import java.util.Random;
+
 public class Main {
   public static void main(String[] args) {
-    UserInterface ui = new UserInterface();
-    ui.getInputs()
-      .takeWhile(line -> !isExit(line))
-      .reduce("", (a, b) -> {
-        System.out.println(b);
-        return a + b;
-      });
+    Wordle wordle = new Wordle(chooseWord());
+    wordle.run();
   }
 
-  private static boolean isExit(String line) {
-    String normalized = line.strip().toLowerCase();
-    return normalized.equals("/exit") || normalized.equals("/quit"); 
+  private final static List<String> WORD_BANK = List.of("maybe", "class", "monad");
+
+  private static String chooseWord() {
+    int index = new Random().nextInt(WORD_BANK.size());
+    return WORD_BANK.get(index);
   }
 }
