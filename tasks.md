@@ -66,21 +66,59 @@ javac -Xlint:unchecked -Xlint:rawtypes Main.java UserInterface.java Wordle.java 
 
 ## Testing
 
-(Yes, I was too lazy to write tests.)
+I'm too lazy to write a full test suite for each task. Anyways, it's good
+practice for testing your own code. After compiling, you can run the game with
+`java Main`, and test its behavior on different inputs.
 
-After compiling, try running the game with `java Main`. Alternatively, you can
-write inputs to a `.txt` file and redirect standard input:
+I've also provided a small test script for the finished game:
 
 ```sh
-vim test.txt
-java Main < test.txt
+bash ./test.sh
 ```
 
-If you just want to play around with the solution, copy the files from `solution`:
+The script compiles your Java files, runs both inputs, and compares the
+output with the corresponding `.expected` files.
+
+The `win.in` case checks an invalid length, a repeated guess, and a win. Its
+output should be:
+
+```text
+? > Expected length 5
+? > X?XOX
+? > world already guessed
+? > Congrats! Solved in 2 guess(es)
+> The word was hello!
+```
+
+The `lose.in` checks that six different valid, incorrect guesses end the
+game without requesting a seventh line:
+
+```text
+? > X?XOX
+? > XXXXX
+? > XXXX?
+? > XXXXX
+? > ?XX?X
+? > XX?XX
+> The word was hello!
+```
+
+The `? ` prompt and `> ` response appear on the same line when input comes
+from a file. These are examples rather than an exhaustive test suite. You
+can play interactively with `java Main`. To try the supplied solution, use
+a separate copy of the project so that your work is not overwritten.
+
+You can also write test inputs and redirect them like so:
 
 ```sh
-mv solution/InfiniteList.java cs2030s/fp/InfiniteList.java
-mv solution/Wordle.java Wordle.java
+vim example.txt
+java Main < example.txt
+```
+
+Passing a word as the first argument to `Main` fixes the target word:
+
+```sh
+java Main hello
 ```
 
 ## Task 1: Consume input

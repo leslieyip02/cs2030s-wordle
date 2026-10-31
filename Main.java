@@ -1,9 +1,15 @@
+import cs2030s.fp.Maybe;
 import java.util.List;
 import java.util.Random;
 
 public class Main {
   public static void main(String[] args) {
-    Wordle wordle = new Wordle(chooseWord());
+    String targetWord = Maybe.of(args.length)
+                             .filter(n -> n > 0)
+                             .map(i -> args[0])
+                             .orElseGet(() -> chooseWord());
+
+    Wordle wordle = new Wordle(targetWord);
     wordle.run();
   }
 
