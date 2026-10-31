@@ -1,21 +1,20 @@
 import cs2030s.fp.InfiniteList;
 import cs2030s.fp.Maybe;
+import cs2030s.fp.Producer;
 import java.util.Scanner;
 
 public class UserInterface {
   private final Scanner scanner;
-  private final InfiniteList<String> inputs;
 
   public UserInterface() {
     this.scanner = new Scanner(System.in);
-    this.inputs = InfiniteList
-      .generate(() -> read()) 
-      .map(line -> clean(line))
-      .filter(line -> line.length() > 0);
   }
 
-  public InfiniteList<String> getInputs() {
-    return inputs;
+  public InfiniteList<String> getInputs(Producer<Boolean> shouldContinue) {
+    return InfiniteList.generate(shouldContinue)
+      .takeWhile(b -> b)
+      .map(_ -> clean(read()))
+      .filter(line -> line.length() > 0);
   }
 
   private String clean(String line) {

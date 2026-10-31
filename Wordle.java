@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class Wordle {
   private static class Status {
-    private String word;
-    private Maybe<String> message;
+    private final String word;
+    private final Maybe<String> message;
 
     private static Status of(String word) {
       return new Status(word, Maybe.none());
@@ -42,17 +42,19 @@ public class Wordle {
 
   public void run() {
     UserInterface ui = new UserInterface();
-    ui.getInputs()
-      .takeWhile(line -> !isGameOver(line))
-      .map(w -> guess(w))
-      .forEach(m -> ui.print(m));
+    ui.getInputs(() -> !isGameOver())
+      .takeWhile(line -> !isGameExit(line))
+      .map(line -> guess(line))
+      .forEach(message -> ui.print(message));
     ui.print(String.format("The word was %s!", targetWord));
   }
 
-  private boolean isGameOver(String line) {
-    return isGameWon
-      || alreadyGuessed.size() == MAX_ATTEMPTS
-      || line.equals("/exit");
+  private boolean isGameOver() {
+    return isGameWon || alreadyGuessed.size() >= MAX_ATTEMPTS;
+  }
+
+  private boolean isGameExit(String line) {
+    return line.equals("/exit");
   }
 
   private String guess(String word) {
