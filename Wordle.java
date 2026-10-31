@@ -63,7 +63,6 @@ public class Wordle {
                           .map(w -> validateAlreadyGuessed(w))
                           .map(w -> checkGameWin(w))
                           .map(w -> checkPositions(w));
-    alreadyGuessed.add(word);
     return status.getMessage();
   }
 
