@@ -29,4 +29,8 @@ public class Wordle {
   private boolean isGameExit(String line) {
     return line.equals("/exit");
   }
+
+  private String guess(String word) {
+    return word;
+  }
 }
