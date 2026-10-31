@@ -149,6 +149,14 @@ public class InfiniteList<T> {
         );
   }
 
+  public void forEach(Consumer<? super T> action) {
+    InfiniteList<T> list = this;
+    while (!list.isSentinel()) {
+      list.head.get().ifPresent(action);
+      list = list.tail.get();
+    }
+  }
+
   @Override
   public String toString() {
     return "[" + this.head + " " + this.tail + "]";
