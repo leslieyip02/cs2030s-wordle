@@ -69,13 +69,13 @@ public class Wordle {
   private Maybe<String> validateLength(String word) {
     return Maybe.of(word)
                 .filter(w -> word.length() != targetWord.length())
-                .map(_ -> String.format("Expected length %d", targetWord.length()));
+                .map(w -> String.format("Expected length %d", targetWord.length()));
   }
 
   private Maybe<String> validateAlreadyGuessed(String word) {
     Maybe<String> message = Maybe.of(word)
                                  .filter(w -> alreadyGuessed.contains(w))
-                                 .map(_ -> String.format("%s already guessed", word));
+                                 .map(w -> String.format("%s already guessed", word));
     alreadyGuessed.add(word);
     return message;
   }
@@ -83,8 +83,8 @@ public class Wordle {
   private Maybe<String> checkGameWin(String word) {
     Maybe<String> message = Maybe.of(word)
                                  .filter(w -> w.equals(targetWord))
-                                 .map(_ -> String.format("Congrats! Solved in %d guess(es)", alreadyGuessed.size()));
-    message.ifPresent(_ -> isGameWon = true);
+                                 .map(w -> String.format("Congrats! Solved in %d guess(es)", alreadyGuessed.size()));
+    message.ifPresent(m -> isGameWon = true);
     return message;
   }
 
@@ -100,7 +100,7 @@ public class Wordle {
       .filter(c -> targetWord.indexOf(c) != -1)
       .map(c -> Maybe.of(index)
                      .filter(i -> targetWord.charAt(i) == c)
-                     .map(_ -> "O")
+                     .map(i -> "O")
                      .orElse("?"))
       .orElse("X");
   }

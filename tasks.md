@@ -37,14 +37,14 @@ Provided code outside the methods you implement is exempt from the style rules.
 - Do not use `if`, `else`, `switch`, `for`, `while`, `do`, or the ternary
   operator in code you write (unless stated otherwise).
 - Do not use a block inside a lambda expression. However, mutation through a
-  one-line lambda is allowed, for example `foo.ifPresent(_ -> bar())`.
+  one-line lambda is allowed, for example `foo.ifPresent(bar -> baz())`.
 
 For example, use `Maybe` instead of a conditional expression:
 
 ```java
 int x = Maybe.of(y)
              .filter(n -> n > 0)
-             .map(_ -> 1)
+             .map(n -> 1)
              .orElse(-1);
 ```
 

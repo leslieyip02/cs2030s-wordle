@@ -14,7 +14,7 @@ public class Wordle {
     ui.getInputs(() -> !isGameOver())
       .takeWhile(line -> !isGameExit(line))
       .map(line -> guess(line))
-      .reduce("", (_, line) -> {
+      .reduce("", (accumulator, line) -> {
         // TODO: Task 1
         ui.print(line);
         return line;

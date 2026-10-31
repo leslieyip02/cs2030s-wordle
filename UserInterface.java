@@ -1,5 +1,4 @@
 import cs2030s.fp.InfiniteList;
-import cs2030s.fp.Maybe;
 import cs2030s.fp.Producer;
 import java.util.Scanner;
 
@@ -12,8 +11,8 @@ public class UserInterface {
 
   public InfiniteList<String> getInputs(Producer<Boolean> shouldContinue) {
     return InfiniteList.generate(shouldContinue)
-      .takeWhile(b -> b)
-      .map(_ -> clean(read()))
+      .takeWhile(condition -> condition)
+      .map(line -> clean(read()))
       .filter(line -> line.length() > 0);
   }
 
