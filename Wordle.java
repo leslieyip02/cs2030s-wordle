@@ -75,7 +75,7 @@ public class Wordle {
   private Maybe<String> validateAlreadyGuessed(String word) {
     Maybe<String> message = Maybe.of(word)
                                  .filter(w -> alreadyGuessed.contains(w))
-                                 .map(_ -> String.format("%s already guessed"));
+                                 .map(_ -> String.format("%s already guessed", word));
     alreadyGuessed.add(word);
     return message;
   }
