@@ -30,7 +30,6 @@ The classes in `cs2030s/fp/` provide the functional programming operations.
 
 Edit only `Wordle.java` and `cs2030s/fp/InfiniteList.java`. Do not modify
 `Main.java`, `UserInterface.java`, or the other classes in `cs2030s/fp/`.
-Provided code outside the methods you implement is exempt from the style rules.
 
 ## Guidelines
 
@@ -94,7 +93,7 @@ that performs an action once for every value. Implement `InfiniteList.forEach(ac
 | `forEach(action)` | Apply `action` to each present element and return `void`. |
 
 Filtered-out elements must not be passed to `action`. A sentinel or empty
-list must perform no action.
+list must perform no action. You may use a `while` loop for this task.
 
 In `Wordle.run`, replace the temporary `reduce` call with `forEach` so that
 each input line is printed once. After compiling, you can run `java Main`. You
@@ -162,7 +161,7 @@ There are 2 main checks to implement:
 |                                | If not, the message should be `"Expected length <n>"`,     |
 |                                | where `n` is the length of the `targetWord`                |
 | `validateAlreadyGuessed(word)` | Checks if the word has already been guessed.               |
-|                                | If not, the message should be `<word> already guessed      |
+|                                | If so, the message should be `<word> already guessed`.     |
 
 For a target of `hello`:
 
@@ -187,16 +186,22 @@ alreadyGuessed.contains("hello"); // true
 alreadyGuessed.contains("world"); // false
 ```
 
-# Task 3: Check guesses
+## Task 3: Check guesses
 
-Implement `checkPositions(word)` and `checkPosition(letter, index)`:
+Implement `checkPosition(letter, index)` and `checkPositions(word)`:
 
 - `checkPosition` returns `"O"` when `letter` matches the target at `index`,
   `"?"` when the letter occurs elsewhere in the target, and `"X"` otherwise.
 - `checkPositions` combines one symbol for each position, in the same order
   as the guess, and returns it as `Maybe<String>`.
 
-You may assume guesses have the correct length in this task.
+| Method                         | Behaviour                                                  |
+|--------------------------------|------------------------------------------------------------|
+| `checkPosition(letter, index)` | Returns `"O"` when `letter` matches the target at `index`, |
+|                                | `"?"` when the letter occurs elsewhere in the target,      |
+|                                | and `"X"` otherwise.                                       |
+| `checkPositions(word)`         | Returns the result for each position of `word`,            |
+|                                | in the same order.                                         |
 
 For target `hello`:
 
